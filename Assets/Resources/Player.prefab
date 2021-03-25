@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b5553b8d04f76418c0c7f6013e542e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 20
   carMat: {fileID: 2100000, guid: f96c8e051f97fba45b828a3fa670705b, type: 2}
 --- !u!114 &7800686989670595250
 MonoBehaviour:
@@ -97,7 +97,7 @@ CharacterController:
   m_GameObject: {fileID: 2899218857426079590}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5

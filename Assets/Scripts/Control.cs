@@ -9,6 +9,7 @@ using Photon.Realtime;
 
 public class Control : MonoBehaviourPun
 {
+    private Boolean hasSetUp = false;
     private CharacterController controller = null;
 
     // ** don't need line below, bc it's a MonoBehaviourPun *** 
@@ -26,7 +27,6 @@ public class Control : MonoBehaviourPun
 
     // Update is called once per frame
     void Update() {
-
         // only move your player
         if (photonView.IsMine)
         {
@@ -56,12 +56,19 @@ public class Control : MonoBehaviourPun
 
     private void SetUpBothPlayers()
     {
-        /*GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
-        GameObject car1 = cars[0];
-        car1.GetComponent<MeshRenderer>().material = carMat;
-        car1.transform.position = new Vector3 (-80,0,6);
-        GameObject car2 = cars[1];
-        car2.transform.position = new Vector3 (-80,0,-6);*/
+        //PhotonNetwork.AutomaticallySyncScene = true;
+        GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
+        GameObject car1 = cars[1];
+        GameObject car2 = cars[0];
+        if (PhotonNetwork.IsMasterClient) {
+            car1 = cars[0];
+            car2 = cars[1];
+        }
+            car1.GetComponent<MeshRenderer>().material = carMat;
+            car1.transform.parent.transform.position = new Vector3 (-80,0,6);
+            car1.transform.parent.GetComponent<CharacterController>().enabled = true;
+            car2.transform.parent.transform.position = new Vector3 (-80,0,-6);
+            car2.transform.parent.GetComponent<CharacterController>().enabled = true;
         /*foreach (var player in PhotonNetwork.PlayerList)
         {
             if (i == 0)
