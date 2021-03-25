@@ -15,7 +15,7 @@ public class Control : MonoBehaviourPun
     //  private PhotonView photonGuy = null;
 
     [SerializeField] private float speed = 20.0F;
-
+    [SerializeField] private Material carMat = null;
 
     void Start()
     {
@@ -56,8 +56,13 @@ public class Control : MonoBehaviourPun
 
     private void SetUpBothPlayers()
     {
-        int i = 0;
-        foreach (var player in PhotonNetwork.PlayerList)
+        /*GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
+        GameObject car1 = cars[0];
+        car1.GetComponent<MeshRenderer>().material = carMat;
+        car1.transform.position = new Vector3 (-80,0,6);
+        GameObject car2 = cars[1];
+        car2.transform.position = new Vector3 (-80,0,-6);*/
+        /*foreach (var player in PhotonNetwork.PlayerList)
         {
             if (i == 0)
             {
@@ -73,7 +78,7 @@ public class Control : MonoBehaviourPun
             }
 
             i++;
-        }
+        }*/
     }
 
     private void TakeInput()

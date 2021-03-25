@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2899218857426079590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0696478, y: 1.04, z: -26.5}
+  m_LocalPosition: {x: -85, y: 0, z: 6}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 7298844090093199032}
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  carMat: {fileID: 2100000, guid: f96c8e051f97fba45b828a3fa670705b, type: 2}
 --- !u!114 &7800686989670595250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ GameObject:
   - component: {fileID: 1604495705275977529}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
