@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
+
 
 public class MainMenu : MonoBehaviourPunCallbacks
 {
@@ -12,7 +14,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject waitingStatusPanel = null;
     [SerializeField] private TextMeshProUGUI waitingStatusText = null;
 
+    public static MainMenu instance;
+
     private bool isConnecting = false;
+
+    private int stage = 0;
 
     // checked for Photon, because of diff game versions & stuff,
     // lets people play others w/ same version
@@ -27,10 +33,33 @@ public class MainMenu : MonoBehaviourPunCallbacks
         waitingStatusPanel.SetActive(false);
     }
 
+    private void Start()
+    {
+        findOpponentPanel.SetActive(false);
+        waitingStatusPanel.SetActive(false);
+    }
+
+    private void FixedUpdate()
+    {
+        if (stage == 0)
+        {
+            findOpponentPanel.SetActive(false);
+            waitingStatusPanel.SetActive(false);
+        }
+    }
+
+    //public override void OnEnable()
+    //{
+    //    base.OnEnable();
+    //    findOpponentPanel.SetActive(false);
+    //    waitingStatusPanel.SetActive(false);
+    //}
+
     public void ContinueBtn()
     {
         nameInputPanel.SetActive(false);
         findOpponentPanel.SetActive(true);
+        stage = 1;
     }
 
     public void FindOpponent()
@@ -106,6 +135,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             Debug.Log("Match is ready to begin");
 
             PhotonNetwork.LoadLevel("GameScene");
+            stage = 0;
         }
     }
 }

@@ -9,8 +9,9 @@ using Photon.Realtime;
 
 public class Control : MonoBehaviourPun
 {
-    private Boolean hasSetUp = false;
+    //private Boolean hasSetUp = false;
     private CharacterController controller = null;
+    public string playername;
 
     // ** don't need line below, bc it's a MonoBehaviourPun *** 
     //  private PhotonView photonGuy = null;
@@ -23,6 +24,12 @@ public class Control : MonoBehaviourPun
         controller = GetComponent<CharacterController>();
 
         SetUpBothPlayers();
+
+        if (photonView.IsMine)
+        {
+            playername = PlayerPrefs.GetString("PlayerName");
+        }
+
     }
 
     // Update is called once per frame
@@ -32,43 +39,28 @@ public class Control : MonoBehaviourPun
         {
             TakeInput();
         }
-
-        // **** below is initial code that wasn't photon-friendly ****
-
-         //Vector3 pos = transform.position;
- 
-         //if (Input.GetKey ("a")) {
-         //    pos.z += speed * Time.deltaTime;
-         //}
-         //if (Input.GetKey ("d")) {
-         //    pos.z -= speed * Time.deltaTime;
-         //}
-         //if (Input.GetKey ("w")) {
-         //    pos.x += speed * Time.deltaTime;
-         //}
-         //if (Input.GetKey ("s")) {
-         //    pos.x -= speed * Time.deltaTime;
-         //}
-             
- 
-         //transform.position = pos;
      }
 
     private void SetUpBothPlayers()
     {
         //PhotonNetwork.AutomaticallySyncScene = true;
         GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
-        GameObject car1 = cars[1];
-        GameObject car2 = cars[0];
-        if (PhotonNetwork.IsMasterClient) {
-            car1 = cars[0];
-            car2 = cars[1];
-        }
+        if (cars.Length == 2)
+        {
+            GameObject car1 = cars[1];
+            GameObject car2 = cars[0];
+            if (PhotonNetwork.IsMasterClient)
+            {
+                car1 = cars[0];
+                car2 = cars[1];
+            }
             car1.GetComponent<MeshRenderer>().material = carMat;
-            car1.transform.parent.transform.position = new Vector3 (-80,0,6);
+            car1.transform.parent.transform.position = new Vector3(-80, 0, 6);
             car1.transform.parent.GetComponent<CharacterController>().enabled = true;
-            car2.transform.parent.transform.position = new Vector3 (-80,0,-6);
+            car2.transform.parent.transform.position = new Vector3(-80, 0, -6);
             car2.transform.parent.GetComponent<CharacterController>().enabled = true;
+        }
+
         /*foreach (var player in PhotonNetwork.PlayerList)
         {
             if (i == 0)
@@ -99,4 +91,18 @@ public class Control : MonoBehaviourPun
 
         controller.SimpleMove(movement * speed);
     }
+
+    //public void IWon()
+    //{
+    //    photonView.RPC("GameOver", PhotonTargets.All, (string)name);
+    //}
+
+    //[PunRPC]
+    //public void GameOver(string name)
+    //{
+    //    // put stuff "player {name} won"
+    //    Debug.Log($"Player {name} won");
+
+    //    photonView.RPC("GameOver", RpcTarget.Others, (string)name);
+    //}
 }
